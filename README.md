@@ -14,7 +14,7 @@ Estamos listos para comenzar la práctica.
 
 Una vez instalado la VPN de la ULL (a través del programa [Global Protect](https://www.paloaltonetworks.es/resources/datasheets/globalprotect-datasheet) para Windows, o a través de los comandos proporcionados por la [guía de instalacion](https://docs.google.com/document/d/1xhSRVqo6y5HYtQQtBemLEwDG6a_yjGlzrxjwuYxIQAk/edit) en Ubuntu), y asignada nuestra máquina virtual, iniciamos sesión por primera vez.
 
-![First Login](/docs/assets/img01.png)
+![First Login](/assets/img01.png)
 
 <sub>*Como se indica en el [guión](https://ull-esit-inf-dsi-2223.github.io/prct01-iaas/) de la práctica, tras el primer login es mandatorio cambiar la contraseña del nuevo usuario debido a motivos de seguridad.</sub>
 
@@ -253,7 +253,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDzqvqv9LWWJmdsTs80xB1jos5tXY4QiH0HUWy8F7xz
 ```
 
 Y la configuramos en nuestra cuenta:
-![Configuración de Claves SSH y GPG en Github](/docs/assets/img02.png)
+![Configuración de Claves SSH y GPG en Github](/assets/img02.png)
 Con esto ya podemos clonar repositorios a nuestra mv:
 
 ```
