@@ -25,7 +25,9 @@ Para conocer la dirección ip de la mv, basta con utilizar el commando ```ifconf
 ```
 ssh usuario@10.X.XXX.XXX
 ```
+
 Introducimos ```yes``` para aceptar la conexión:
+
 ```
 The authenticity of host '10.X.XXX.XXX (10.X.XXX.XXX)' can't be established.
 ED25519 key fingerprint is SHA256:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.
@@ -33,7 +35,9 @@ This key is not known by any other names
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 Warning: Permanently added '10.X.XXX.XXX' (ED25519) to the list of known hosts.
 ```
+
 Una vez introducida la nueva contraseña del ```usuario``` se realizaría la conexión.
+
 ```
   Memory usage: 7%                 IPv4 address for ens3: 10.X.XXX.XXX
   Swap usage:   0%
@@ -50,7 +54,9 @@ Run 'do-release-upgrade' to upgrade to it.
 
 Last login: Tue Jan 31 16:12:05 2023
 ```
+
 Para cambiar el nombre del Host, modificamos el fichero ```/etc/hostname``` situado en la raíz.
+
 ```
 usuario@ubuntu:~$ cat /etc/hostname
 ubuntu
@@ -58,7 +64,9 @@ usuario@ubuntu:~$ sudo vi /etc/hostname
 usuario@ubuntu:~$ cat /etc/hostname
 iaas-dsi
 ```
+
 Asimismo se debe modificar el fichero ```/etc/hosts```:
+
 ```
 usuario@ubuntu:~$ cat /etc/hosts
 127.0.0.1 localhost
@@ -68,27 +76,37 @@ usuario@ubuntu:~$ cat /etc/hosts
 127.0.0.1 localhost
 127.0.1.1 iaas-dsi
 ```
+
 Y reinciamos la mv:
+
 ```
 usuario@ubuntu:~$ sudo reboot
 Connection to 10.X.XXX.XXX closed by remote host.
 Connection to 10.X.XXX.XXX closed.
 ```
+
 Una vez reiniciada, volvemos a iniciar sesión en la mv y buscamos todas las actualizaciones disponibles para la mv.
+
 ```
 sudo apt update
 ```
+
 Una vez encontradas, procedemos a actualizar todo el software.
+
 ```
 sudo apt upgrade
 ```
+
 Volvemos a reinciar la mv:
+
 ```
 usuario@ubuntu:~$ sudo reboot
 Connection to 10.X.XXX.XXX closed by remote host.
 Connection to 10.X.XXX.XXX closed.
 ```
+
 Aprovechamos para añadir permanentemente la dirección ip de nuestra mv en el fichero ```/etc/hosts``` así no tenemos que volver a recordar la ip.
+
 ```
 iluzio@Peridot:~$ cat /etc/hosts
 127.0.0.1       localhost
@@ -103,10 +121,13 @@ iluzio@Peridot:~$ cat /etc/hosts
 ### Generación de Claves Pública-Privada
 
 Ahora toca configurar, en la máquina local, la infraestructura de clave pública-privada:
+
 ```
 iluzio@Peridot:~$ ssh-keygen
 ```
+
 Y ejecutamos el siguiente comando para copiar las claves públicas desde la máquina local a la máquina virtual:
+
 ```
 iluzio@Peridot:~$ ssh-copy-id usuario@iaas-dsi
 The authenticity of host 'iaas-dsi (10.X.XXX.XXX)' can't be established.
@@ -122,11 +143,15 @@ Number of key(s) added: 2
 Now try logging into the machine, with:   "ssh 'usuario@iaas-dsi'"
 and check to make sure that only the key(s) you wanted were added.
 ```
+
 Con esto podemos inciar sesión directamente, sin requerir contraseña, en la máquina virtual con el siguiente comando:
+
 ```
 ssh usuario@iaas-dsi
 ```
+
 Para no tener que escribir ```usuario``` en el comando, creamos y modificamos el siguiente fichero:
+
 ```
 iluzio@Peridot:~$ touch /home/iluzio/.ssh/config
 iluzio@Peridot:~$ vi /home/iluzio/.ssh/config
@@ -163,7 +188,9 @@ Run 'do-release-upgrade' to upgrade to it.
 
 Last login: Tue Jan 31 17:54:33 2023 from 10.20.51.154
 ```
+
 Por último, generamos las claves pública-privada en la máquina virtual, siguiendo los mismos pasos seguidos con la local.
+
 ```
 usuario@iaas-dsi:~$ ssh-keygen
 Generating public/private rsa key pair.
@@ -177,9 +204,12 @@ usuario@iaas-dsi:~$ cat /home/usuario/.ssh/id_rsa.pub
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDzqvqv9LWWJmdsTs80xB1jos5tXY4QiH0HUWy8F7xzektM93FW/wH8OfBn6cHNjZZAemeXWqxpo7Pkz8dJU4l50BKFWX35TjXQsrna7NzX9WDnJSKNq+XajBBwSmI8v7tHRLb0sV5rdBXfHPa7fjzG5ye6Gzq6eXoNLLuF0O81YEOZrBYu5XRAunG52EiXD22oeyo0vp5fwTfB4dCTAl+jpFdujf4PZ+2TwhWuz+VY2XBg3ei1lNOjGT3/Ke23Psw2NMg+VQGlicc2PovwbSwopDgQunxjhaH4nwhhyr531gcGghEYe5ni80w5YveftrpsW8+DQ2k6mK/mBQvF7iKS/j3k2xHlTngQSOZSa/Ce9u7FVrofCltFwGiXE1I2ue6CBJWNYmbsDiOIiDKrrju2eXLWmtGqiTwOLKw73Yk4BM8C8WQRj0hHQ9vLaXcG+Mfccz3NajLQejzIPj405JWjAP0DTdKnLKxgReGLGxr8hosA4s9/HFPF3OElvOEcrG8= usuario@iaas-dsi
 ```
 
-## Instalación de Git y Node.js en la Máquina Virtual del IaaS
+## Instalación de Git y Node.js en la Máquina Virtual del IaaS :floppy_disk:
+
+### Instalación de Git
 
 Instalamos git en la máquina virtual:
+
 ```
 usuario@iaas-dsi:~$ sudo apt install git
 [sudo] password for usuario: 
@@ -189,7 +219,9 @@ Reading state information... Done
 git is already the newest version (1:2.25.1-1ubuntu3.8).
 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
 ```
+
 No nos podemos olvidar de realizar la configuración inicial de Git:
+
 ```
 usuario@iaas-dsi:~$ git config --global user.name "Luis Chinea Rangel"
 usuario@iaas-dsi:~$ git config --global user.email "alu0101118116@ull.edu.es"
@@ -197,7 +229,9 @@ usuario@iaas-dsi:~$ git config --list
 user.name=Luis Chinea Rangel
 user.email=alu0101118116@ull.edu.es
 ```
+
 Configuramos el prompt de la terminal para que en todo momento nos muestre la rama actual en la que nos encontramos cuando accedamos a algún directorio que resulta estar asociado a algún repositorio git. Para ello se hace uso del script [git prompt.](https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh)
+
 ```
 usuario@iaas-dsi:~$ wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 --2023-01-31 18:13:17--  https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
@@ -210,16 +244,112 @@ PS1='\[\033]0;\u@\h:\w\007\]\[\033[0;34m\][\[\033[0;31m\]\w\[\033[0;32m\]($(git 
 usuario@iaas-dsi:~$ exec bash -l
 [~()]$
 ```
+
 Para poder comprobar el funcionamiento del script, tenemos que añadir la clave pública de la mv a nuestra configuración de claves SSH y GPG de nuestra respectiva cuenta de Github. Para ello, copiamos primero la clave:
+
 ```
 [~()]$cat ~/.ssh/id_rsa.pub 
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDzqvqv9LWWJmdsTs80xB1jos5tXY4QiH0HUWy8F7xzektM93FW/wH8OfBn6cHNjZZAemeXWqxpo7Pkz8dJU4l50BKFWX35TjXQsrna7NzX9WDnJSKNq+XajBBwSmI8v7tHRLb0sV5rdBXfHPa7fjzG5ye6Gzq6eXoNLLuF0O81YEOZrBYu5XRAunG52EiXD22oeyo0vp5fwTfB4dCTAl+jpFdujf4PZ+2TwhWuz+VY2XBg3ei1lNOjGT3/Ke23Psw2NMg+VQGlicc2PovwbSwopDgQunxjhaH4nwhhyr531gcGghEYe5ni80w5YveftrpsW8+DQ2k6mK/mBQvF7iKS/j3k2xHlTngQSOZSa/Ce9u7FVrofCltFwGiXE1I2ue6CBJWNYmbsDiOIiDKrrju2eXLWmtGqiTwOLKw73Yk4BM8C8WQRj0hHQ9vLaXcG+Mfccz3NajLQejzIPj405JWjAP0DTdKnLKxgReGLGxr8hosA4s9/HFPF3OElvOEcrG8= usuario@iaas-dsi
 ```
+
 Y la configuramos en nuestra cuenta:
 ![Configuración de Claves SSH y GPG en Github](/docs/assets/img02.png)
 Con esto ya podemos clonar repositorios a nuestra mv:
+
 ```
 [~()]$git clone git@github.com:ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct01-iaas-iluzioDev.git
 Cloning into 'ull-esit-inf-dsi-22-23-prct01-iaas-iluzioDev'...
 warning: You appear to have cloned an empty repository.
+[~/ull-esit-inf-dsi-22-23-prct01-iaas-iluzioDev()]$git pull origin main
+From github.com:ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct01-iaas-iluzioDev
+ * branch            main       -> FETCH_HEAD
+[~/ull-esit-inf-dsi-22-23-prct01-iaas-iluzioDev(master)]$ls
+README.md  docs
 ```
+
+Observemos como ahora el prompt de la terminal nos indica la rama en la que estamos situados actualmente en el repositorio git, en este caso ```main```.
+
+### Instalación de Node.js
+
+Ahora procederemos a instalar [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm), que es el gestor de versiones de [Node.js.](https://nodejs.org/en/) 
+> Node.js es un entorno que permite la ejecución de código desarrollado en Javascript y variantes, como por ejemplo, Typescript.
+
+```
+[~()]$wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+=> Downloading nvm from git to '/home/usuario/.nvm'
+=> Cloning into '/home/usuario/.nvm'...
+remote: Enumerating objects: 358, done.
+remote: Counting objects: 100% (358/358), done.
+remote: Compressing objects: 100% (304/304), done.
+remote: Total 358 (delta 41), reused 162 (delta 28), pack-reused 0
+Receiving objects: 100% (358/358), 218.97 KiB | 3.27 MiB/s, done.
+Resolving deltas: 100% (41/41), done.
+* (HEAD detached at FETCH_HEAD)
+  master
+=> Compressing and cleaning up git repository
+
+=> Appending nvm source string to /home/usuario/.bashrc
+=> Appending bash_completion source string to /home/usuario/.bashrc
+=> Close and reopen your terminal to start using nvm or run the following to use it now:
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[~()]$exec bash -l
+[~()]$nvm --version
+0.39.1
+```
+
+Hemos conseguido instalar nvm correctamente. Una vez logrado esto, vamos a instalar la última versión de Node.js:
+
+```
+[~()]$nvm install node
+Downloading and installing node v19.5.0...
+Downloading https://nodejs.org/dist/v19.5.0/node-v19.5.0-linux-x64.tar.xz...
+########################################################################################################################## 100.0%
+Computing checksum with sha256sum
+Checksums matched!
+Now using node v19.5.0 (npm v9.3.1)
+Creating default alias: default -> node (-> v19.5.0)
+[~()]$node --version
+v19.5.0
+[~()]$npm --version
+9.3.1
+```
+
+Al instalar Node.js, podemos ver que se ha instalado la última versión (19.5.0), además de la última versión de [Node Package Manager (npm)](https://www.npmjs.com/), que es el gestor de paquetes de Node.js.
+
+Si nuestro objetivo fuese instalar una versión específica de Node.js, deberíamos utilizar el siguiente comando:
+
+```
+nvm install 18.13.0
+```
+
+Sustituyendo ```18.13.0``` por la versión deseada.
+
+Para cambiar entre versiones instaladas, utilizamos los siguientes comandos:
+- Para listar todas las versiones instaladas
+```
+[~()]$nvm list
+->      v19.5.0
+default -> node (-> v19.5.0)
+iojs -> N/A (default)
+unstable -> N/A (default)
+node -> stable (-> v19.5.0) (default)
+stable -> 19.5 (-> v19.5.0) (default)
+lts/* -> lts/hydrogen (-> N/A)
+lts/argon -> v4.9.1 (-> N/A)
+lts/boron -> v6.17.1 (-> N/A)
+lts/carbon -> v8.17.0 (-> N/A)
+lts/dubnium -> v10.24.1 (-> N/A)
+lts/erbium -> v12.22.12 (-> N/A)
+lts/fermium -> v14.21.2 (-> N/A)
+lts/gallium -> v16.19.0 (-> N/A)
+lts/hydrogen -> v18.13.0 (-> N/A)
+```
+- Para cambiar de versión
+```
+nvm use 18.13.0
+```
+
+Con esto finalizamos la actividad de esta semana.
