@@ -1,2 +1,6 @@
 title: "Desarrollo de Sistemas Informáticos - ULL"
-theme: jekyll-theme-slate
+lang: es-ES
+
+remote_theme: jekyll-theme-slate
+plugins:
+- jekyll-remote-theme
