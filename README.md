@@ -1,5 +1,7 @@
 # Práctica 1 - Configuración de máquina virtual en el IaaS
 
+[![pages-build-deployment](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct01-iaas-iluzioDev/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct01-iaas-iluzioDev/actions/workflows/pages/pages-build-deployment)
+
 ## Configuración Previa
 
 Una vez realizado las tareas previas:
